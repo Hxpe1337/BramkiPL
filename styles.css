@@ -217,13 +217,14 @@ input[type="submit"]:hover {
 .dropdown-content.expanded {
   max-height: 500px; /* Adjust as needed based on the content size */
 }
-.active-link {
+.active-link, .active-link i, .active-link span {
+  font-weight: bold;
+
   color: var(--main-colour-font); /* lub inny kolor, który chcesz użyć */
 }
 
 .dropdown-arrow i {
   font-optical-sizing: 12px;
-  color: #ffffff; /* Change to your desired color */
 }
 .active-section {
   background-color: lightgray; /* Dostosuj kolor tła do swoich potrzeb */
@@ -238,4 +239,94 @@ input[type="submit"]:hover {
   width: 180px;
   font-size: 14px;
   border-bottom: none;
+}
+
+.method {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+
+}
+
+.method form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  
+
+}
+
+.method label {
+  color: var(--main-colour-font);
+}
+
+.method select {
+  text-align: left;
+  background-color: var(--secondary-color);
+  color: var(--font-color);
+  border: none;
+  padding: 10px 14px;
+  border-radius: 5px;
+  border: 1px solid rgba(50, 50, 50, 0.712);
+
+}
+
+.method button {
+  background-color: var(--secondary-color);
+  color: var(--font-color);
+  border: 1px solid rgba(50, 50, 50, 0.712);
+  padding: 5px 8px;
+  cursor: pointer;
+  font-size: 0.8rem;
+  transition: background-color 0.3s ease;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+#platformSelect {
+  -webkit-appearance: none; /* Usunięcie domyślnej strzałki w WebKit i Blink */
+  -moz-appearance: none; /* Usunięcie domyślnej strzałki w Gecko */
+  appearance: none; /* Standardowa właściwość */
+  /* Dalsze style dla select, np. padding, tło itp. */
+}
+
+.arrow {
+  transition: transform 0.3s ease; /* Dodanie animacji */
+  font-weight: 1000;
+  position: absolute;
+  right: 10px; /* Odległość strzałki od prawej krawędzi select */
+  top: 50%; /* Wycentrowanie strzałki */
+  transform: translateY(-50%);
+  border-style: solid;
+  border-width: 5px 5px 0 5px;
+  border-color: #b692fd transparent transparent transparent;
+  /* Strzałka w dół, możesz dostosować rozmiary */
+}
+
+/* Style gdy select jest otwarty - strzałka w górę */
+#platformSelect.open + .arrow {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+
+select {
+   background-color: var(--input-color);
+
+  /* Może być konieczne dodanie stylów dla przeglądarek, które tego wspierają */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/* Dla przeglądarek, które pozwalają na stylizowanie opcji */
+select option {
+  border-radius: 5px;
+  background-color:  var(--secondary-color);
+  color: var(--font-color);
 }

@@ -27,7 +27,7 @@
           </button>
 
           <h2 class="main" style="text-align: center">
-            bramki<b class="colour">.pl</b>
+            cwele<b class="colour">.pl</b>
           </h2>
           <ul class="nav-menu">
             <li>
@@ -38,7 +38,7 @@
   </a>
   <div class="dropdown-content">
     <a href="#bramki">Twoje oferty</a>
-    <a href="#">Stwórz oferte</a>
+    <a href="#offert-create">Stwórz oferte</a>
     <a href="#">Statystyki ofert</a>
   </div>
 </li>
@@ -62,14 +62,29 @@
             </li>
           </ul>
           
-          <h2 class="footer" style="text-align: center">
-            Made By<b class="colour"> Hype</b>
-          </h2>
+ 
         </nav>
       </div>
 
-      <div id="bramki" class="content-section">
-        <label for="opcje">Wybierz opcję:</label>
+      <div id="offert-create" class="content-section">
+        <div class="method">
+          <form id="platformForm">
+            <label for="platformSelect">Wybierz platformę:</label>
+            <div class="select-wrapper">
+              <select id="platformSelect" name="platform">
+                <option value="allegro">Allegro</option>
+                <option value="allegroLokalnie">Allegro Lokalnie</option>
+                <option value="olx">OLX</option>
+              </select>
+              <span class="arrow"></span>
+            </div>
+            <button type="submit">Przejdź dalej</button>
+          </form>
+        </div>
+      </div>
+      
+        
+        <!-- <label for="opcje">Wybierz opcję:</label>
         <select class="opcje" name="opcje" id="opcje">
           <option value="opcja1">Opcja 1</option>
           <option value="opcja2">Opcja 2</option>
@@ -114,7 +129,7 @@
             <button class="btn" type="submit">Stwórz</button>
             <button class="btn" type="submit">Stwórz</button>
           </div>
-        </form>
+        </form> -->
       </div>
 
       <div id="telegram-bot" class="content-section" style="display: none">

@@ -1,23 +1,39 @@
 document.addEventListener("DOMContentLoaded", () => {
-  function showSection(sectionId) {
+  let currentActiveSection = ""; // Zmienna do śledzenia aktualnie aktywnej sekcji
+
+  const showSection = (sectionId) => {
     document.querySelectorAll(".content-section").forEach((section) => {
       section.style.display = "none";
+      section.classList.remove("fade-in");
     });
-    document.querySelector(sectionId).style.display = "block";
-  }
+    // Sprawdź, czy sekcja ma zostać otwarta
+    if (sectionId && currentActiveSection !== sectionId) {
+      const selectedSection = document.querySelector(sectionId);
+      if (selectedSection !== null) {
+        selectedSection.style.display = "block";
+        selectedSection.classList.add("fade-in"); // Dodanie klasy z animacją
+      }
+      currentActiveSection = sectionId; // Aktualizacja aktualnie aktywnej sekcji
+    } else {
+      // Jeśli kliknięto ponownie w ten sam link, zamknij sekcję
+      currentActiveSection = "";
+    }
+  };
 
-  function updateActiveLink(targetId) {
+  const updateActiveLink = (targetId) => {
     // Usuń klasę .active-link z wszystkich linków
     document
       .querySelectorAll(".nav-link, .dropdown-content a")
       .forEach((link) => {
-        if (link.getAttribute("href") === targetId) {
-          link.classList.add("active-link");
-        } else {
-          link.classList.remove("active-link");
-        }
+        link.classList.remove("active-link");
       });
-  }
+    // Jeśli sekcja ma zostać otwarta, dodaj klasę .active-link do odpowiedniego linku
+    if (currentActiveSection) {
+      document.querySelectorAll(`[href='${targetId}']`).forEach((link) => {
+        link.classList.add("active-link");
+      });
+    }
+  };
 
   document
     .querySelectorAll(".nav-link, .dropdown-content a")
@@ -25,21 +41,66 @@ document.addEventListener("DOMContentLoaded", () => {
       link.addEventListener("click", (e) => {
         e.preventDefault();
         const sectionId = link.getAttribute("href");
-        showSection(sectionId);
+        showSection(sectionId === currentActiveSection ? "" : sectionId);
         updateActiveLink(sectionId);
       });
     });
 
-  // Pokaż domyślną sekcję i zaktualizuj aktywny link
-  const defaultSectionId = "#bramki";
-  showSection(defaultSectionId);
-  updateActiveLink(defaultSectionId);
-
   // Obsługa przełączania menu
   const menuToggle = document.querySelector(".menu-toggle");
   const nav = document.querySelector("nav");
-
-  menuToggle.addEventListener("click", function () {
+  menuToggle.addEventListener("click", () => {
     nav.classList.toggle("active");
   });
 });
+document.addEventListener("DOMContentLoaded", (event) => {
+  const form = document.querySelector("form");
+
+  form.addEventListener("submit", function (event) {
+    let isFormValid = true;
+
+    // Znajdź wszystkie wymagane pola input w formularzu
+    const inputs = form.querySelectorAll("input[required]");
+
+    inputs.forEach((input) => {
+      // Sprawdź czy pole jest puste
+      if (!input.value) {
+        // Zatrzymaj wysyłanie formularza
+        event.preventDefault();
+        isFormValid = false;
+        // Wyświetl powiadomienie
+        showNotification(
+          `Proszę wypełnić pole: ${input.previousElementSibling.textContent}`
+        );
+      }
+    });
+
+    // Tutaj możesz dodać inne warunki walidacji
+
+    if (isFormValid) {
+      // Jeśli formularz jest poprawny, pozwól mu się wysłać
+      form.submit();
+    }
+  });
+});
+function showNotification(message) {
+  var notification = document.createElement("div");
+  notification.textContent = message;
+  notification.className = "notification";
+  document.body.appendChild(notification);
+
+  // Trigger reflow
+  notification.offsetHeight;
+
+  // Add class to show the notification
+  notification.classList.add("show");
+
+  // Remove the notification after some time
+  setTimeout(function () {
+    notification.classList.remove("show");
+    // Remove the element from the DOM after the animation
+    setTimeout(function () {
+      notification.remove();
+    }, 500); // Adjust this time to match your animation duration
+  }, 5000);
+}
